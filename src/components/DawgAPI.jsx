@@ -1,4 +1,5 @@
 import { useState } from "react";
+import LikedPictures from "./DawgLikedPics";
 
 function DisplayDawg() {
     
@@ -6,6 +7,31 @@ function DisplayDawg() {
     const [dawg, setDawg] = useState();
     const [dawgMessage, setDawgMessage] = useState("");
     const [dawgCounter, setDawgCounter] = useState(0);
+    const [idCounter, setIdCounter] = useState(() => {
+        // Get the last counter from localStorage or start from 0
+        return Number(localStorage.getItem("idCounter")) || 0;
+    });
+    
+    // Function to save liked pictures to local storage
+    const saveLikedPictures = () => {
+        // Retrieve existing liked pictures
+        const existingPictures = JSON.parse(localStorage.getItem("likedDawg") || "[]");
+    
+        // Check if the picture is already in localStorage
+        if (existingPictures.some((pic) => pic.id === dawg.id)) {
+            setDawgMessage("Already Liked!");
+            return;
+        }
+    
+        // Update counter and save new picture
+        const newCounter = idCounter + 1;
+        localStorage.setItem("likedDawg" + newCounter, JSON.stringify(dawg));
+        localStorage.setItem("idCounter", newCounter.toString()); // Store counter persistently
+    
+        setIdCounter(newCounter);
+        setDawgMessage("Dawg Liked!");
+    };
+    
 
     // overall function that handles the dawg
     async function getDawg() {
@@ -46,11 +72,19 @@ function DisplayDawg() {
         <div>
             <h3> Dawg click counter : {dawgCounter}</h3>
         </div>
-        <button onClick={getDawg}>Click me to get a random dawg</button>
-        <img src={dawg} className="dawg-pics"></img>
+        <div className="main-container">
+            <div className="buttons">
+                <button onClick={getDawg}>Click me to get a random dawg</button>
+                <button onClick={saveLikedPictures} className="save-pics">Click me to like dawg</button>
+            </div>
+            <img src={dawg} className="dawg-pics"></img>
+        </div>
+        <div className="liked-pics-container">
+            <LikedPictures/>
+        </div>
     </div>
     </>
     )
 }
 
-export default DisplayDawg;
+export default DisplayDawg; 

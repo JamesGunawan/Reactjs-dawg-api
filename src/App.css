@@ -45,6 +45,7 @@
 .dawg-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .dawg-pics {
@@ -52,4 +53,78 @@
   width: 500px;
   border-radius: 25px;
   margin-top: 25px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.save-pics {
+  margin-left: 25px;
+}
+
+.liked-pics-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.liked-pics {
+  width: 250px;
+  height: 250px;
+  margin: 10px;
+  border-radius: 25px;
+  flex-wrap: wrap;
+}
+
+.main-container {
+
+}
+
+/* Ensure proper box-sizing globally */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Sticky Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Make navbar span the full width */
+  background-color: #333;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+  z-index: 1000;
+  overflow: hidden; /* Prevent overflow */
+}
+
+/* Remove margin on body */
+body {
+  margin: 0;
+  padding-top: 60px; /* Prevent content from being hidden behind navbar */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Style the links */
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #ffcc00;
+}
+
+/* Fix content wrapper */
+.main-content {
+  width: 100%;
+  padding: 20px;
 }
